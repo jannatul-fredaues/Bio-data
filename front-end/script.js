@@ -7,15 +7,15 @@
    ============================================================ */
 
 const BIODATA = {
-  name: "Soha",
-  initial: "S",
+  name: "Jannatul Ferdaues"
+  initial: "JF",
   photo: "",                 // e.g. "photo.jpg" — leave empty to show the initial
   invocation: "",            // optional opening line / dua / blessing (leave empty to hide)
   roles: [
     "Data Science & AI Student",
     "Machine Learning Builder",
     "Aspiring Data Analyst",
-    "Full-Stack Tinkerer",
+    "Data Analyst",
   ],
 
   stats: [
@@ -28,34 +28,47 @@ const BIODATA = {
     lead: "Curious by nature, driven by data.",
     paragraphs: [
       "I'm a final-year student focused on data science and AI, based in Bangladesh. I love turning messy problems into working things — from machine learning models and NLP tools to full-stack web apps.",
-      "Outside coursework I build a portfolio through Kaggle competitions, academic work and independent projects. I'm aiming to step into the IT industry in 2027 as a data analyst.",
+      "Outside coursework, I build a portfolio through Kaggle competitions, academic work, and independent projects. I'm aiming to step into the IT industry in 2027 as a data analyst.",
       "Add 1–2 sentences about your values, personality and what you're looking for in a life partner.",
     ],
     quote: "Add a line that sums you up — a favourite saying or personal motto.",
   },
 
   details: [
-    ["Full Name", "Add your full name"],
-    ["Date of Birth", "Add date of birth"],
-    ["Age", "Add age"],
-    ["Height", "Add height"],
-    ["Marital Status", "Add marital status"],
-    ["Religion", "Add religion"],
-    ["Hometown", "Add hometown"],
-    ["Current Location", "Bangladesh"],
-    ["Languages", "Add languages"],
+    ["Full Name", "Jannatul Ferdaues"],
+    ["Date of Birth", "13.12.2002"],
+    ["Age", "24"],
+    ["Height", "5.1"],
+    ["Eye color", "Brownish black"],
+    ["Hair color", "Reddish black (currently Black)"],
+    ["Weight", "68 kg"],
+    ["Marital Status", "Single"],
+    ["Religion", "Islam"],
+    ["Hometown", "Jessore"],
+    ["Current Location", "Dhaka, Bangladesh"],
+    ["Languages", "Bangla, English, Hindi, Japanese"],
+    ["Dress Preference", "Western"],
+     
+  ],
+
+     family: [
+    ["Father", "Mofizur Rahman & Works abroad"],
+    ["Mother", "Mafahuza Akter & Housewife"],
+    ["Siblings", "No Siblings"],
+    ["Family Type", "Nuclear"],
+    ["Family Values", "I'll prioritize my family more than anything."],
   ],
 
   education: [
     {
-      when: "Expected 2026",
+      when: "Expected 2027",
       title: "Final-year Undergraduate",
-      text: "Focused on data science and AI. Add your degree, department and university.",
+      text: "Focused on data science and AI. Add your degree, department, and university.",
     },
     {
       when: "Ongoing",
       title: "Portfolio & Competitions",
-      text: "Kaggle competitions, academic projects and independent development across ML, NLP, deep learning and full-stack web.",
+      text: "Kaggle competitions, academic projects, and independent development across ML, NLP, deep learning, and full-stack web.",
     },
     {
       when: "2027 · Goal",
@@ -96,34 +109,24 @@ const BIODATA = {
       stack: ["Deep Learning", "Colab", "Vision"],
     },
   ],
-  hfLink: "https://huggingface.co/jannatul-ferdaues",
-
-  family: [
-    ["Father", "Add father's name & occupation"],
-    ["Mother", "Add mother's name & occupation"],
-    ["Siblings", "Add siblings"],
-    ["Family Type", "Add (e.g. nuclear / joint)"],
-    ["Family Values", "Add a short description"],
-  ],
+  hfLink: "https://www.jannatulferdaues.site/home",
 
   interests: ["Kaggle Competitions", "Building Web Apps", "Machine Learning", "Learning New Tools", "Add a hobby", "Add a hobby"],
 
-  preferences: [
-    "Add: age range you're looking for",
-    "Add: education / career expectations",
-    "Add: values and lifestyle you hope to share",
-    "Add: location preferences",
-    "Add: anything else that matters to you",
-  ],
+  hobby:[
+     ["1st:", "Watching Anime"],
+     ["2nd:", "Reading Manhwa"],
+     ["3rd:", "Watching K-drama"],
 
+],
   contact: {
     note: "For proposals, please reach out to my guardian first.",
     rows: [
-      ["Guardian", "Add guardian name"],
-      ["Phone / WhatsApp", "Add phone number"],
-      ["Email", "Add email address"],
+      ["Guardian", "Mahafuza Akter"],
+      ["Phone / WhatsApp", "01710236060"],
+      ["Email", "kalpona@gmail.com"],
     ],
-    extraLink: { label: "My projects on Hugging Face ↗", href: "https://huggingface.co/jannatul-ferdaues" },
+    extraLink: { label: "My projects on Github ↗", href: "https://github.com/jannatul-fredaues" },
   },
 
   footer: "Made with care, a little code, and a lot of hope.",
