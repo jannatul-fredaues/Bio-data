@@ -7,9 +7,9 @@
    ============================================================ */
 
 const BIODATA = {
-  name: "Jannatul Ferdaues"
+  name: "Jannatul Ferdaues",
   initial: "JF",
-  photo: "",                 // e.g. "photo.jpg" — leave empty to show the initial
+  photo: "",        // main hero photo — leave empty to show the initial
   invocation: "",            // optional opening line / dua / blessing (leave empty to hide)
   roles: [
     "Data Science & AI Student",
@@ -29,9 +29,8 @@ const BIODATA = {
     paragraphs: [
       "I'm a final-year student focused on data science and AI, based in Bangladesh. I love turning messy problems into working things — from machine learning models and NLP tools to full-stack web apps.",
       "Outside coursework, I build a portfolio through Kaggle competitions, academic work, and independent projects. I'm aiming to step into the IT industry in 2027 as a data analyst.",
-      "Add 1–2 sentences about your values, personality and what you're looking for in a life partner.",
     ],
-    quote: "Add a line that sums you up — a favourite saying or personal motto.",
+    photo: "photo.jpg", 
   },
 
   details: [
@@ -58,6 +57,27 @@ const BIODATA = {
     ["Family Type", "Nuclear"],
     ["Family Values", "I'll prioritize my family more than anything."],
   ],
+
+    hobby:[
+     ["1st:", "Watching Anime"],
+     ["2nd:", "Reading Manhwa"],
+     ["3rd:", "Watching K-drama"],
+     ["4th:", "Listing K-pop, Japanese song"],
+     ["5th:", "Watching Movie"],
+],
+  // Photo gallery — put image files in the "photos" folder and list them here.
+  // Leave src empty ("") to show an "Add photo" placeholder tile.
+  gallery: [
+    { src: "photos/photo-1.jpg", caption: "Portrait" },
+    { src: "photos/photo-2.jpg", caption: "Park day" },
+    { src: "photos/photo-3.jpg", caption: "Brick wall smile" },
+    { src: "photos/photo-4.jpg", caption: "Cafe moment" },
+    { src: "photos/photo-5.jpg", caption: "In pink" },
+    { src: "photos/photo-6.jpg", caption: "In black" },
+    { src: "photos/photo-7.jpeg", caption: "In botom green" },
+    { src: "photos/photo-8.jpg", caption: "In magenda" },
+  ],
+
 
   education: [
     {
@@ -111,14 +131,9 @@ const BIODATA = {
   ],
   hfLink: "https://www.jannatulferdaues.site/home",
 
-  interests: ["Kaggle Competitions", "Building Web Apps", "Machine Learning", "Learning New Tools", "Add a hobby", "Add a hobby"],
+  interests: ["Kaggle Competitions", "Building Web Apps", "Machine Learning", "Learning New Tools"],
 
-  hobby:[
-     ["1st:", "Watching Anime"],
-     ["2nd:", "Reading Manhwa"],
-     ["3rd:", "Watching K-drama"],
-
-],
+ 
   contact: {
     note: "For proposals, please reach out to my guardian first.",
     rows: [
@@ -149,6 +164,7 @@ const markTodo = (v) => { if (isPlaceholder(v)) hasPlaceholders = true; return v
 const SECTIONS = [
   { id: "about", label: "About" },
   { id: "details", label: "Details" },
+  { id: "gallery", label: "Gallery" },
   { id: "journey", label: "Journey" },
   { id: "skills", label: "Skills" },
   { id: "projects", label: "Projects" },
@@ -171,10 +187,12 @@ function build() {
   if (B.photo) { core.style.backgroundImage = `url("${B.photo}")`; core.textContent = ""; }
   else core.textContent = B.initial;
 
-  const letters = [...B.name];
-  $("#heroName").innerHTML = letters
-    .map((c, i) => `<span class="ch" style="--n:${letters.length};--p:${(i / Math.max(letters.length - 1, 1)) * 100}%;animation-delay:${1000 + i * 90}ms,${2200 + i * 200}ms">${c === " " ? "&nbsp;" : c}</span>`)
-    .join("");
+  const letters = [...B.name].filter((c) => c !== " ");
+  let li = 0;
+  $("#heroName").innerHTML = B.name.split(" ").map((w) => `<span class="word">${[...w].map((c) => {
+    const i = li++;
+    return `<span class="ch" style="--n:${letters.length};--p:${(i / Math.max(letters.length - 1, 1)) * 100}%;animation-delay:${1000 + i * 90}ms,${2200 + i * 200}ms">${c}</span>`;
+  }).join("")}</span>`).join(" ");
 
   $("#stats").innerHTML = B.stats
     .map((s) => `<div class="stat"><b class="count" data-to="${s.to}" data-plain="${!!s.plain}">0</b><span>${s.label}</span></div>`)
@@ -192,7 +210,7 @@ function build() {
         <p class="lead">${B.about.lead}</p>
         ${B.about.paragraphs.map((p) => `<p>${markTodo(p)}</p>`).join("")}
       </div>
-      <div class="card quote tilt reveal right"><p>${markTodo(B.about.quote)}</p></div>
+      ${B.about.photo ? `<div class="card about-photo tilt reveal right"><img src="${B.about.photo}" alt="${B.name}" loading="lazy" /></div>` : ""}
     </div>
   </div></section>`;
 
@@ -201,6 +219,17 @@ function build() {
     ${head("The basics", "Personal details")}
     <div class="details-grid">
       ${B.details.map(([k, v], i) => `<div class="detail reveal zoom" style="--d:${i * 70}ms"><small>${k}</small><strong>${markTodo(v)}</strong></div>`).join("")}
+    </div>
+  </div></section>`;
+
+  const gallery = `
+  <section class="section" id="gallery"><div class="wrap">
+    ${head("Moments", "Photo gallery")}
+    <div class="gallery-grid">
+      ${B.gallery.map((g, i) => g.src
+        ? `<figure class="g-item reveal zoom" style="--d:${i * 110}ms" data-i="${i}" tabindex="0" role="button" aria-label="Open photo: ${g.caption}">
+            <img src="${g.src}" alt="${g.caption}" loading="lazy" /><figcaption>${g.caption}</figcaption></figure>`
+        : `<figure class="g-item empty reveal zoom" style="--d:${i * 110}ms"><div class="g-empty"><span>＋</span><em>Add photo</em></div></figure>`).join("")}
     </div>
   </div></section>`;
 
@@ -222,7 +251,7 @@ function build() {
       ${B.skills.map((g, gi) => `
         <div class="card skill-group tilt reveal" style="--d:${gi * 120}ms">
           <h3>${g.group}</h3>
-          <div class="chips">${g.items.map((it, i) => `<span class="chip" style="--fd:${(i * 0.4).toFixed(1)}s">${it}</span>`).join("")}</div>
+          <div class="chips">${g.items.map((it, i) => `<span class="chip" style="--fd:${(i * 0.4).toFixed(1)}s;--i:${i}">${it}</span>`).join("")}</div>
         </div>`).join("")}
     </div>
   </div></section>`;
@@ -245,13 +274,13 @@ function build() {
 
   const family = `
   <section class="section" id="family"><div class="wrap">
-    ${head("Where I come from", "Family & preferences")}
+    ${head("Where I come from", "Family & hobbies")}
     <div class="two-col">
       <div class="card reveal left"><h3>Family</h3>
-        <ul class="kv">${B.family.map(([k, v]) => `<li><span>${k}</span><b>${markTodo(v)}</b></li>`).join("")}</ul>
+        <ul class="kv">${B.family.map(([k, v], i) => `<li class="reveal" style="--d:${i * 80}ms"><span>${k}</span><b>${markTodo(v)}</b></li>`).join("")}</ul>
       </div>
-      <div class="card reveal right"><h3>Partner preferences</h3>
-        <ul class="ticks">${B.preferences.map((p) => `<li>${markTodo(p)}</li>`).join("")}</ul>
+      <div class="card reveal right"><h3>Hobbies</h3>
+        <ul class="kv">${B.hobby.map(([k, v], i) => `<li class="reveal" style="--d:${i * 80}ms"><span>${k}</span><b>${markTodo(v)}</b></li>`).join("")}</ul>
       </div>
     </div>
     <div class="marquee reveal"><div class="marquee-track">
@@ -266,15 +295,15 @@ function build() {
     <div class="card contact reveal zoom">
       <p class="note">${c.note}</p>
       <div class="contact-list">
-        ${c.rows.map(([k, v]) => `
-          <div class="contact-row"><div><small>${k}</small><span>${markTodo(v)}</span></div>
+        ${c.rows.map(([k, v], i) => `
+          <div class="contact-row reveal" style="--d:${i * 120}ms"><div><small>${k}</small><span>${markTodo(v)}</span></div>
           ${isPlaceholder(v) ? "" : `<button class="copy" data-copy="${v}">Copy</button>`}</div>`).join("")}
       </div>
       <a class="btn primary" href="${c.extraLink.href}" target="_blank" rel="noopener">${c.extraLink.label}</a>
     </div>
   </div></section>`;
 
-  $("#sections").innerHTML = about + details + journey + skills + projects + family + contact;
+  $("#sections").innerHTML = about + details + gallery + journey + skills + projects + family + contact;
 }
 
 /* ============================================================
@@ -417,6 +446,70 @@ function setupMenu() {
   });
 }
 
+/* ---------- Gallery lightbox ---------- */
+function setupGallery() {
+  const items = BIODATA.gallery.filter((g) => g.src);
+  if (!items.length) return;
+  const lb = document.createElement("div");
+  lb.className = "lightbox";
+  lb.innerHTML = `<button class="lb-close" aria-label="Close">✕</button>
+    <button class="lb-nav prev" aria-label="Previous">‹</button>
+    <figure><img alt="" /><figcaption></figcaption></figure>
+    <button class="lb-nav next" aria-label="Next">›</button>`;
+  document.body.appendChild(lb);
+  const img = $("img", lb), cap = $("figcaption", lb);
+  let cur = 0;
+  const show = (i) => {
+    cur = (i + items.length) % items.length;
+    img.classList.remove("swap"); void img.offsetWidth; img.classList.add("swap");
+    img.src = items[cur].src; img.alt = cap.textContent = items[cur].caption;
+  };
+  const open = (i) => { show(i); lb.classList.add("open"); document.body.style.overflow = "hidden"; };
+  const close = () => { lb.classList.remove("open"); document.body.style.overflow = ""; };
+  $$(".g-item:not(.empty)").forEach((el) => {
+    const idx = () => items.findIndex((g) => g.src === BIODATA.gallery[+el.dataset.i].src);
+    el.addEventListener("click", () => open(idx()));
+    el.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(idx()); } });
+  });
+  $(".lb-close", lb).addEventListener("click", close);
+  $(".prev", lb).addEventListener("click", () => show(cur - 1));
+  $(".next", lb).addEventListener("click", () => show(cur + 1));
+  lb.addEventListener("click", (e) => { if (e.target === lb) close(); });
+  addEventListener("keydown", (e) => {
+    if (!lb.classList.contains("open")) return;
+    if (e.key === "Escape") close();
+    if (e.key === "ArrowLeft") show(cur - 1);
+    if (e.key === "ArrowRight") show(cur + 1);
+  });
+  if (items.length < 2) lb.classList.add("single");
+}
+
+/* ---------- Per-section ambient motion ---------- */
+function setupSectionFX() {
+  $$(".section").forEach((s, i) => {
+    const orbs = document.createElement("div");
+    orbs.className = "fx";
+    orbs.innerHTML = `<i class="o1"></i><i class="o2"></i><i class="s1">✦</i><i class="s2">✦</i><i class="s3">✦</i>`;
+    s.prepend(orbs);
+    s.style.setProperty("--sd", `${-i * 3}s`);
+  });
+  if (reduced) return;
+  // gentle parallax for the orbs while scrolling
+  const fx = $$(".section .fx");
+  let t = false;
+  addEventListener("scroll", () => {
+    if (t) return; t = true;
+    requestAnimationFrame(() => {
+      fx.forEach((el) => {
+        const r = el.parentElement.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > innerHeight) return;
+        el.style.setProperty("--py", ((r.top + r.height / 2 - innerHeight / 2) * -0.08).toFixed(1) + "px");
+      });
+      t = false;
+    });
+  }, { passive: true });
+}
+
 /* ---------- Falling petals canvas ---------- */
 function setupPetals() {
   if (reduced) return;
@@ -490,6 +583,8 @@ setupScroll();
 setupTilt();
 setupCursor();
 setupMenu();
+setupSectionFX();
+setupGallery();
 setupPetals();
 
 window.addEventListener("load", () => {
